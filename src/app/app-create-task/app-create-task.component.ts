@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Task } from '../task.model';
 import { TasksService } from '../tasks.service';
@@ -11,17 +11,16 @@ import { TasksService } from '../tasks.service';
 export class AppCreateTaskComponent implements OnInit {
   task: Task;
   isChecked: boolean = false;
-  form: NgForm;
+  @ViewChild('createItem') form: NgForm;
   constructor(private tasksService: TasksService) { }
 
   ngOnInit() {
   }
-  onAddItem(form) {
-    this.tasksService.addNewTask(form.value.name);
-    console.log(form.invalid);
-    form.reset();
+  onAddItem(value) {
+    this.tasksService.addNewTask(value.value);
+    this.form.reset();
   }
-  onToggleComplited(id) {
+  onToggleComplited() {
     this.isChecked = !this.isChecked;
     this.tasksService.toggleComplited(this.isChecked);
   }

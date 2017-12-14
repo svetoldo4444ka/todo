@@ -14,7 +14,6 @@ export class AppTasksControllerComponent implements OnInit {
     this.tasksService.changeListLength
       .subscribe(
         (number)  => {
-          console.log(2);
           this.taskCounter = number;
         }
       );
