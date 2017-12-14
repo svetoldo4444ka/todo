@@ -10,7 +10,7 @@ import { TasksService } from '../../tasks.service';
 })
 export class AppTaskComponent implements OnInit {
   @Input() newTask: Task;
-  showInput: boolean = false;
+  showInput = false;
   constructor(private tasksService: TasksService) { }
 
   ngOnInit() {
@@ -19,15 +19,15 @@ export class AppTaskComponent implements OnInit {
   onDeleteTask(id) {
     this.tasksService.deleteTask(id);
   }
-
-  onSwitchElement() {
-    this.showInput = true;
-  }
-  onChangeValue(form: NgForm, id: number) {
-    this.tasksService.changeTask(form.value.name, id);
-    this.showInput = false;
-  }
   onUpdateCounter(id) {
     this.tasksService.updateCounter(id);
   }
+
+  // onSwitchElement() {
+  //   this.showInput = true;
+  // }
+  // onChangeValue(form: NgForm, id: number) {
+  //   this.tasksService.changeTask(form.value.name, id);
+  //   this.showInput = false;
+  // }
 }

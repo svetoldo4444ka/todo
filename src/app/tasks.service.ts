@@ -1,73 +1,70 @@
 import { Task } from './task.model';
 import { Subject } from 'rxjs/Subject';
 
-
 export class TasksService {
-  private tasks: Task[] = [];
+  public tasks: Task[] = [];
   changeListTasks = new Subject<Task[]>();
   changeListLength = new Subject<number>();
   changingTasks= [];
   counter: number = this.tasks.length;
-  constructor(){}
+  constructor() {}
+
+  filterValues(value?) {
+    if (typeof value !== 'undefined') {
+      return this.changingTasks = this.tasks.filter((item) => item.completed === value);
+    }
+    return this.tasks;
+  }
+  getTasks(value?) {
+    this.changeListTasks.next(this.filterValues(value));
+  }
+  addNewTask(value: string, valueIsCompleted) {
+    this.tasks.push(new Task(this.tasks.length, value, valueIsCompleted));
+    this.changeListTasks.next(this.tasks);
+    this.changeListLength.next(this.filterValues(valueIsCompleted).length);
+  }
+  getCompletedTask() {
+    this.changingTasks = this.filterValues(false);
+    this.tasks = this.changingTasks;
+    this.changeListTasks.next(this.tasks);
+  }
   deleteTask(id) {
     this.changingTasks = this.tasks.filter( (item, index) => index !== id);
     this.tasks = this.changingTasks;
     this.changeListTasks.next(this.tasks);
-    this.changingTasks = this.tasks.filter((item) => item.completed === false);
+    this.changingTasks = this.filterValues(false);
     this.changeListLength.next(this.changingTasks.length);
-  }
-  addNewTask(value: string) {
-    this.tasks.push(new Task(this.tasks.length, value, false));
-    this.changeListTasks.next(this.tasks);
-    this.changingTasks = this.tasks.filter((item) => item.completed === false);
-    this.changeListLength.next(this.changingTasks.length);
-
-  }
-  getActiveTask()  {
-    this.changingTasks = this.tasks.filter((item) => item.completed !== true);
-    this.changeListTasks.next(this.changingTasks);
-  }
-  getAllTask() {
-    this.changeListTasks.next(this.tasks);
-  }
-  getCompletedTasks() {
-    this.changingTasks = this.tasks.filter((item) => item.completed === true);
-    this.changeListTasks.next(this.changingTasks);
-  }
-  getCompletedTask() {
-    this.changingTasks = this.tasks.filter((item) => item.completed === false);
-    this.tasks = this.changingTasks;
-    this.changeListTasks.next(this.tasks);
-  }
-  changeTask(value, id) {
-   this.tasks.map((item, index) => {
-     if (index === id) {
-       item.name = value;
-     }
-   });
-    this.changeListTasks.next(this.tasks);
   }
   toggleComplited(value) {
     if (value) {
-      for (let task of this.tasks){
+      for (const task of this.tasks){
         task.completed = true;
       }
     } else {
-      for (let task of this.tasks){
+      for (const task of this.tasks){
         task.completed = false;
       }
     }
-    this.changingTasks = this.tasks.filter((item) => item.completed === false);
+    this.changingTasks = this.filterValues(false);
     this.changeListLength.next(this.changingTasks.length);
   }
   updateCounter(id) {
-    for (let task of this.tasks){
+    for (const task of this.tasks){
       if (task.id === id) {
         task.completed = !task.completed;
       }
     }
-    this.changingTasks = this.tasks.filter((item) => item.completed === false);
+    this.changingTasks = this.filterValues(false);
     this.changeListLength.next(this.changingTasks.length);
   }
+
+  // changeTask(value, id) {
+  //  this.tasks.map((item, index) => {
+  //    if (index === id) {
+  //      item.name = value;
+  //    }
+  //  });
+  //   this.changeListTasks.next(this.tasks);
+  // }
 }
 
