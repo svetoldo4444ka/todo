@@ -30,10 +30,9 @@ fdescribe('AppTaskComponent', () => {
     component.onUpdateCounter(1);
     expect(service.updateCounter).toHaveBeenCalledWith(1);
   });
-  it('should call deleteTask', () => {
-    spyOn(service, 'deleteTask');
-    component.onDeleteTask(1);
-    expect(service.deleteTask).toHaveBeenCalledWith(1);
-  });
+  // it('should call deleteTask', () => {
+  //   spyOn(service, 'deleteTask');
+  //   component.onDeleteTask(1);
+  //   expect(service.deleteTask).toHaveBeenCalledWith(1);
+  // });
 });
-a

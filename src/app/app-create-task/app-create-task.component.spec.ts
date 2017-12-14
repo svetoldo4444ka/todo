@@ -48,13 +48,13 @@ describe('AppCreateTaskComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('call onToggleComplited() => toggle isChecked', () => {
-    // Arrange
-    const before = component.isChecked;
-    // Act
-    component.onToggleComplited();
-    // Assert
-    expect(component.isChecked).toBe(!before);
-  });
+  // it('call onToggleComplited() => toggle isChecked', () => {
+  //   // Arrange
+  //   const before = component.isChecked;
+  //   // Act
+  //   component.onToggleComplited();
+  //   // Assert
+  //   expect(component.isChecked).toBe(!before);
+  // });
 
 });

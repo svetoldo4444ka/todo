@@ -19,6 +19,5 @@ export class AppTasksListComponent implements OnInit {
           this.tasks = tasks;
         }
       );
-
   }
 }

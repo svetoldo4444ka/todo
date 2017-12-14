@@ -1,50 +1,38 @@
 import { Task } from './task.model';
 import { Subject } from 'rxjs/Subject';
 
-
 export class TasksService {
   public tasks: Task[] = [];
   changeListTasks = new Subject<Task[]>();
   changeListLength = new Subject<number>();
   changingTasks= [];
   counter: number = this.tasks.length;
-  constructor(){}
-  addNewTask(value: string) {
-    this.tasks.push(new Task(this.tasks.length, value, false));
+  constructor() {}
+
+  filterValues(value?: boolean) {
+    if (typeof value !== 'undefined') {
+      return this.changingTasks = this.tasks.filter((item) => item.completed === value);
+    }
+    return this.tasks;
+  }
+  getTasks(value?) {
+    this.changeListTasks.next(this.filterValues(value));
+  }
+  addNewTask(value: string, valueIsCompleted) {
+    this.tasks.push(new Task(this.tasks.length, value, valueIsCompleted));
     this.changeListTasks.next(this.tasks);
-    this.changingTasks = this.tasks.filter((item) => item.completed === false);
-    this.changeListLength.next(this.changingTasks.length);
-  }
-  getActiveTask()  {
-    this.changingTasks = this.tasks.filter((item) => item.completed !== true);
-    this.changeListTasks.next(this.changingTasks);
-  }
-  getCompletedTasks() {
-    this.changingTasks = this.tasks.filter((item) => item.completed === true);
-    this.changeListTasks.next(this.changingTasks);
+    this.changeListLength.next(this.filterValues(valueIsCompleted).length);
   }
   getCompletedTask() {
-    this.changingTasks = this.tasks.filter((item) => item.completed === false);
+    this.changingTasks = this.filterValues(false);
     this.tasks = this.changingTasks;
-    this.changeListTasks.next(this.tasks);
-  }
-  // changeTask(value, id) {
-  //  this.tasks.map((item, index) => {
-  //    if (index === id) {
-  //      item.name = value;
-  //    }
-  //  });
-  //   this.changeListTasks.next(this.tasks);
-  // }
-  getAllTask() {
     this.changeListTasks.next(this.tasks);
   }
   deleteTask(id) {
-    this.changingTasks = this.tasks.filter( (item, index) => index !== id);
-    this.tasks = this.changingTasks;
+    this.tasks = this.tasks.filter( (item) => item.id !== id);
     this.changeListTasks.next(this.tasks);
-    this.changingTasks = this.tasks.filter((item) => item.completed === false);
-    this.changeListLength.next(this.changingTasks.length);
+    const changingTasks = this.filterValues(false);
+    this.changeListLength.next(changingTasks.length);
   }
   toggleComplited(value) {
     if (value) {
@@ -56,7 +44,7 @@ export class TasksService {
         task.completed = false;
       }
     }
-    this.changingTasks = this.tasks.filter((item) => item.completed === false);
+    this.changingTasks = this.filterValues(false);
     this.changeListLength.next(this.changingTasks.length);
   }
   updateCounter(id) {
@@ -65,10 +53,9 @@ export class TasksService {
         task.completed = !task.completed;
       }
     }
-    this.changingTasks = this.tasks.filter((item) => item.completed === false);
+    this.changingTasks = this.filterValues(false);
     this.changeListLength.next(this.changingTasks.length);
   }
 }
-
 
 

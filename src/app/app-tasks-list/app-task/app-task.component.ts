@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import { Task } from '../../task.model';
 import { NgForm } from '@angular/forms';
 import { TasksService } from '../../tasks.service';
@@ -11,7 +11,6 @@ import { TasksService } from '../../tasks.service';
 export class AppTaskComponent implements OnInit {
   @Input() newTask: Task;
   showInput = false;
-  @ViewChild('createItem') form: NgForm;
   constructor(private tasksService: TasksService) { }
 
   ngOnInit() {
@@ -19,6 +18,9 @@ export class AppTaskComponent implements OnInit {
   }
   onDeleteTask(id) {
     this.tasksService.deleteTask(id);
+  }
+  onUpdateCounter(id) {
+    this.tasksService.updateCounter(id);
   }
 
   // onSwitchElement() {
@@ -28,7 +30,4 @@ export class AppTaskComponent implements OnInit {
   //   this.tasksService.changeTask(form.value.name, id);
   //   this.showInput = false;
   // }
-  onUpdateCounter(id) {
-    this.tasksService.updateCounter(id);
-  }
 }

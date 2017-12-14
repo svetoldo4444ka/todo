@@ -8,8 +8,8 @@ import { TasksService } from '../tasks.service';
 })
 export class AppTasksControllerComponent implements OnInit {
   taskCounter: number = this.tasksService.counter;
+  value = false;
   constructor(private tasksService: TasksService) { }
-
   ngOnInit() {
     this.tasksService.changeListLength
       .subscribe(
@@ -18,17 +18,16 @@ export class AppTasksControllerComponent implements OnInit {
         }
       );
   }
-
-  onGetActiveTask() {
-    this.tasksService.getActiveTask();
+  onGetActiveTasks(): void {
+    this.tasksService.getTasks(this.value);
   }
-  onGetAllTask() {
-    this.tasksService.getAllTask();
+  onGetCompletedTasks(): void {
+    this.tasksService.getTasks(!this.value);
   }
-  onGetCompletedTasks() {
-    this.tasksService.getCompletedTasks();
+  onGetAllTask(): void {
+    this.tasksService.getTasks();
   }
-  onGetCompletedTask() {
+  onGetCompletedTask(): void {
     this.tasksService.getCompletedTask();
   }
 }

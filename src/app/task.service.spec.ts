@@ -35,42 +35,76 @@ describe('TasksService', () => {
     });
     service = TestBed.get(TasksService);
   });
-  xit('should create the service', () => {
-    service.changeListTasks.subscribe(datad => console.log('lalala:', data));
-    service.addNewTask('123');
-  });
-  it('should create the service', () => {
-    expect(service).toBeTruthy();
-  });
-  it('should add new task', () => {
-    service.changeListTasks.subscribe(dataList => {
-      expect('test task').toEqual( dataList[0].name ); } );
-    service.addNewTask(data);
-  });
-  it('should get active task', () => {
-     service.tasks = tasks;
-     service.changeListTasks.subscribe(taskArray => {
-       taskArray.forEach((item) => {
-         expect(item.completed).toBeFalsy();
-       });
-     });
-      service.getActiveTask();
-  });
-  it('should get complited task', () => {
-    service.tasks = tasks;
-    service.changeListTasks.subscribe(taskArray => {
-      taskArray.forEach((item) => {
-        expect(item.completed).not.toBeFalsy();
-      });
-    });
-    service.getCompletedTasks();
-  });
+  // xit('should create the service', () => {
+  //   service.changeListTasks.subscribe(datad => console.log('lalala:', data));
+  //   service.addNewTask('123');
+  // });
+
   it('should delete task', () => {
+    console.log('delete');
     service.deleteTask(1);
+
     service.changeListTasks.subscribe(() => {
       expect(tasks.length).not.toEqual(2); } );
   });
-  it('should change value', () => {
+
+  // xit('should get complited task', () => {
+  //   service.tasks = tasks;
+  //   service.changeListTasks.subscribe(taskArray => {
+  //     taskArray.forEach((item) => {
+  //       expect(item.completed).not.toBeFalsy();
+  //     });
+  //   });
+  //   service.getCompletedTasks();
+  // });
+
+  fit('nzme', ()=> {
+    service.tasks = tasks;
+    const changeSpy = spyOn(service.changeListTasks, 'next').and.stub();
+    spyOn(service, 'filterValues').and.returnValue([]);
+    const listSpy = spyOn(service.changeListLength, 'next').and.stub();
+
+    service.deleteTask(2);
+
+    expect(service.tasks.length).toEqual(1);
+    expect(changeSpy).toHaveBeenCalledWith(service.tasks);
+    expect(listSpy).toHaveBeenCalledWith(0);
+  });
+/*
+  deleteTask(id) {
+    this.changingTasks = this.tasks.filter( (item, index) => index !== id);
+    this.tasks = this.changingTasks;
+    this.changeListTasks.next(this.tasks);
+    changingTasks = this.filterValues(false);
+    this.changeListLength.next(changingTasks.length);
+    }
+
+    deleteTask(id, tasks) {
+    const t = tasks.filter( (item, index) => index !== id);
+      this.changeListTasks.next(t);
+    }
+
+*/
+
+
+  xit('should create the service', () => {
+    expect(service).toBeTruthy();
+  });
+  // xit('should add new task', () => {
+  //   service.changeListTasks.subscribe(dataList => {
+  //     expect('test task').toEqual( dataList[0].name ); } );
+  //   service.addNewTask(data);
+  // });
+  // xit('should get active task', () => {
+  //    service.tasks = tasks;
+  //    service.changeListTasks.subscribe(taskArray => {
+  //      taskArray.forEach((item) => {
+  //        expect(item.completed).toBeFalsy();
+  //      });
+  //    });
+  //     service.getActiveTask();
+  // });
+  xit('should change value', () => {
     service.toggleComplited(valueComplited);
     service.changeListTasks.subscribe(() => {
       service.tasks.forEach((item) => {

@@ -30,21 +30,21 @@ describe('AppTasksControllerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should call onGetActiveTask', () => {
-    const spy = spyOn(tasksService, 'getActiveTask');
-    component.onGetActiveTask();
-    expect(spy).toHaveBeenCalled();
-  });
-  it('should call onGetAllTask', () => {
-    const spy = spyOn(tasksService, 'getAllTask');
-    component.onGetAllTask();
-    expect(spy).toHaveBeenCalled();
-  });
-  it('should call onGetCompletedTasks', () => {
-    const spy = spyOn(tasksService, 'getCompletedTasks');
-    component.onGetCompletedTasks();
-    expect(spy).toHaveBeenCalled();
-  });
+  // it('should call onGetActiveTask', () => {
+  //   const spy = spyOn(tasksService, 'getActiveTask');
+  //   component.onGetActiveTask();
+  //   expect(spy).toHaveBeenCalled();
+  // });
+  // it('should call onGetAllTask', () => {
+  //   const spy = spyOn(tasksService, 'getAllTask');
+  //   component.onGetAllTask();
+  //   expect(spy).toHaveBeenCalled();
+  // });
+  // it('should call onGetCompletedTasks', () => {
+  //   const spy = spyOn(tasksService, 'getCompletedTasks');
+  //   component.onGetCompletedTasks();
+  //   expect(spy).toHaveBeenCalled();
+  // });
   it('should call onGetCompletedTask', () => {
     const spy = spyOn(tasksService, 'getCompletedTask');
     component.onGetCompletedTask();
