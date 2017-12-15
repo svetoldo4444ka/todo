@@ -1,31 +1,37 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppCreateTaskComponent } from './app-create-task.component';
 import { FormsModule } from '@angular/forms';
-import { TasksService } from '../tasks.service';
+import { TasksService } from '../shared/tasks.service';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
-
+class TasksServiceMock {
+  addNewTask() {}
+  toggleComplited() {}
+}
 describe('AppCreateTaskComponent', () => {
   let component: AppCreateTaskComponent;
   let fixture:   ComponentFixture<AppCreateTaskComponent>;
-  let tasksService: TasksService;
-
-  beforeEach(async(() => {
+  let service: TasksServiceMock;
+  const isCompleted = false;
+  const testString = 'test string';
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ AppCreateTaskComponent ],
       imports: [ FormsModule ],
-      providers: [ TasksService ]
+      providers: [ {
+        provide: TasksService,
+        useClass: TasksServiceMock
+      } ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppCreateTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    tasksService = TestBed.get(TasksService);
+    service = TestBed.get(TasksService);
   });
 
   it('should create', () => {
@@ -33,28 +39,21 @@ describe('AppCreateTaskComponent', () => {
   });
 
   it('has valid form', () => {
-    let input = fixture.debugElement.query(By.css('input')).nativeElement;
+    const input = fixture.debugElement.query(By.css('input')).nativeElement;
     input.value = 'test';
     expect(input.value.length).not.toEqual(0);
   });
 
-  it('call onAddItem() call tasksService.addNewTask', () => {
-    // Arrange
-    const spy = spyOn(tasksService, 'addNewTask');
-    const value = '';
-    // Act
-    component.onAddItem(value);
-    // Assert
-    expect(spy).toHaveBeenCalled();
+  it('should call addNewTask method', () => {
+    spyOn(service, 'addNewTask').and.stub();
+    component.onAddItem(testString);
+    expect(service.addNewTask).toHaveBeenCalled();
   });
 
-  // it('call onToggleComplited() => toggle isChecked', () => {
-  //   // Arrange
-  //   const before = component.isChecked;
-  //   // Act
-  //   component.onToggleComplited();
-  //   // Assert
-  //   expect(component.isChecked).toBe(!before);
-  // });
+  it('should call toggleComplited method', () => {
+    spyOn(service, 'toggleComplited');
+    component.onToggleComplited();
+    expect(service.toggleComplited).toHaveBeenCalled();
+  });
 
 });

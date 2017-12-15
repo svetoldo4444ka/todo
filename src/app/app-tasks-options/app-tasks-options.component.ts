@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { TasksService } from '../tasks.service';
+import { TasksService } from '../shared/tasks.service';
 
 @Component({
-  selector: 'app-tasks-controller',
-  templateUrl: './app-tasks-controller.component.html',
-  styleUrls: ['./app-tasks-controller.component.css']
+  selector: 'app-tasks-options',
+  templateUrl: './app-tasks-options.component.html',
+  styleUrls: ['./app-tasks-options.component.css']
 })
-export class AppTasksControllerComponent implements OnInit {
+export class AppTasksOptionsComponent implements OnInit {
   taskCounter: number = this.tasksService.counter;
   value = false;
   constructor(private tasksService: TasksService) { }
@@ -14,6 +14,7 @@ export class AppTasksControllerComponent implements OnInit {
     this.tasksService.changeListLength
       .subscribe(
         (number)  => {
+          // controller
           this.taskCounter = number;
         }
       );

@@ -1,10 +1,8 @@
 /* tslint:disable:no-unused-variable */
 
-import { ComponentFixture, TestBed} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
 import { TasksService } from './tasks.service';
-import {AppCreateTaskComponent} from './app-create-task/app-create-task.component';
 import {Task} from './task.model';
-import {forEach} from '@angular/router/src/utils/collection';
 
 describe('TasksService', () => {
   let service: TasksService;
@@ -22,11 +20,9 @@ describe('TasksService', () => {
     {
       id: 2,
       name: 'test task',
-      completed: false
+      completed: true
     }
   ];
-  let data = 'test task';
-  let valueComplited = true;
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -40,13 +36,13 @@ describe('TasksService', () => {
   //   service.addNewTask('123');
   // });
 
-  it('should delete task', () => {
-    console.log('delete');
-    service.deleteTask(1);
-
-    service.changeListTasks.subscribe(() => {
-      expect(tasks.length).not.toEqual(2); } );
-  });
+  // it('should delete task', () => {
+  //   console.log('delete');
+  //   service.deleteTask(1);
+  //
+  //   service.changeListTasks.subscribe(() => {
+  //     expect(tasks.length).not.toEqual(2); } );
+  // });
 
   // xit('should get complited task', () => {
   //   service.tasks = tasks;
@@ -57,20 +53,48 @@ describe('TasksService', () => {
   //   });
   //   service.getCompletedTasks();
   // });
-
-  fit('nzme', ()=> {
+  it('should create the service', () => {
+    expect(service).toBeTruthy();
+  });
+  it('should delete tasks', () => {
     service.tasks = tasks;
     const changeSpy = spyOn(service.changeListTasks, 'next').and.stub();
     spyOn(service, 'filterValues').and.returnValue([]);
     const listSpy = spyOn(service.changeListLength, 'next').and.stub();
-
     service.deleteTask(2);
-
     expect(service.tasks.length).toEqual(1);
     expect(changeSpy).toHaveBeenCalledWith(service.tasks);
     expect(listSpy).toHaveBeenCalledWith(0);
   });
+  it('should add new task', () => {
+    service.tasks = [];
+    service.addNewTask('test', false);
+    expect(service.tasks.length).not.toEqual(0);
+  });
+  it('should get completed tasks', () => {
+    service.tasks = tasks;
+    service.getCompletedTask();
+    service.tasks.forEach((item) => {
+      expect(item.completed).not.toBeTruthy();
+    });
+  });
+  it('should update counter', () => {
+    // service.tasks = tasks;
+    // const changeSpy = spyOn(service.changeListTasks, 'next').and.stub();
+    // service.updateCounter(1);
+
+  });
+
+
 /*
+
+
+
+
+
+
+
+
   deleteTask(id) {
     this.changingTasks = this.tasks.filter( (item, index) => index !== id);
     this.tasks = this.changingTasks;
@@ -87,9 +111,6 @@ describe('TasksService', () => {
 */
 
 
-  xit('should create the service', () => {
-    expect(service).toBeTruthy();
-  });
   // xit('should add new task', () => {
   //   service.changeListTasks.subscribe(dataList => {
   //     expect('test task').toEqual( dataList[0].name ); } );
@@ -104,12 +125,4 @@ describe('TasksService', () => {
   //    });
   //     service.getActiveTask();
   // });
-  xit('should change value', () => {
-    service.toggleComplited(valueComplited);
-    service.changeListTasks.subscribe(() => {
-      service.tasks.forEach((item) => {
-        expect(item.completed).not.toBeFalsy();
-      });
-    });
-  });
 });

@@ -1,18 +1,18 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TasksService } from '../../tasks.service';
-import {AppTaskComponent} from './app-task.component';
+import { TasksService } from '../../shared/tasks.service';
+import { AppTaskComponent } from './app-task.component';
 
 class TaskServiceMock {
   updateCounter() {}
   deleteTask() {}
 }
-fdescribe('AppTaskComponent', () => {
+describe('AppTaskComponent', () => {
   let component: AppTaskComponent;
   let fixture: ComponentFixture<AppTaskComponent>;
   let service: TaskServiceMock;
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AppTaskComponent],
       providers: [
@@ -24,15 +24,15 @@ fdescribe('AppTaskComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     service = TestBed.get(TasksService);
-  }));
+  });
   it('should call updateCounter', () => {
     spyOn(service, 'updateCounter').and.stub();
     component.onUpdateCounter(1);
     expect(service.updateCounter).toHaveBeenCalledWith(1);
   });
-  // it('should call deleteTask', () => {
-  //   spyOn(service, 'deleteTask');
-  //   component.onDeleteTask(1);
-  //   expect(service.deleteTask).toHaveBeenCalledWith(1);
-  // });
+  it('should call deleteTask', () => {
+    spyOn(service, 'deleteTask');
+    component.onDeleteTask(1);
+    expect(service.deleteTask).toHaveBeenCalledWith(1);
+  });
 });
