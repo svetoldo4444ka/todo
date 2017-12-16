@@ -5,22 +5,19 @@ export class TasksService {
   public tasks: Task[] = [];
   changeListTasks = new Subject<Task[]>();
   changeListLength = new Subject<number>();
-  // complitedProperty = new Subject<boolean>();
   changingTasks= [];
+  listState: string;
   counter: number = this.tasks.length;
   constructor() {}
 
-  // getComplitedProperty() {
-  //   this.
-  // }
-  // ***
   filterValues(value?: boolean) {
     if (typeof value !== 'undefined') {
       return this.changingTasks = this.tasks.filter((item) => item.completed === value);
     }
     return this.tasks;
   }
-  getTasks(value?) {
+  getTasks(clickedButton, value?) {
+    this.listState = clickedButton;
     this.changeListTasks.next(this.filterValues(value));
   }
   addNewTask(value: string, valueIsCompleted) {
@@ -39,41 +36,33 @@ export class TasksService {
     const changingTasks = this.filterValues(false);
     this.changeListLength.next(changingTasks.length);
   }
-  getVal(isChecked) {
+  getTasksValue(isChecked: boolean): boolean {
     for (const task of this.tasks){
-      if (task.completed) {
-        isChecked = true;
-        break;
+      if (task.completed === isChecked) {
+        return isChecked = !isChecked;
+      } else {
+        return isChecked;
       }
-      isChecked = false;
     }
-    return isChecked;
   }
   toggleComplited(isChecked: boolean): boolean {
-    const val = this.getVal(isChecked);
-    console.log(isChecked);
-    // this.changingTasks = this.filterValues(!val);
-    // this.changeListLength.next(this.changingTasks.length);
-    for (const task of this.tasks){
-      if (!val) {
+    const value = this.getTasksValue(isChecked);
+    if (value) {
+      for (const task of this.tasks){
         task.completed = true;
-      } else {
+      }
+    } else {
+      for (const task of this.tasks){
         task.completed = false;
       }
     }
-    return val;
-    // console.log(value);
-    // if (value) {
-    //   for (const task of this.tasks){
-    //     task.completed = true;
-    //   }
-    // } else {
-    //   for (const task of this.tasks){
-    //     task.completed = false;
-    //   }
-    // }
-    // this.changingTasks = this.filterValues(false);
-    // this.changeListLength.next(this.changingTasks.length);
+    this.changingTasks = this.filterValues(false);
+    this.changeListLength.next(this.changingTasks.length);
+    return value;
+  }
+  checkCompleted() {
+    if (this.tasks.length === 0) { return false; }
+    return this.tasks.every((task) => task.completed === true);
   }
   updateCounter(id) {
     const idTask = id;
@@ -84,7 +73,14 @@ export class TasksService {
         taskProp = task.completed;
       }
     }
-    // this.getTasks(!taskProp);
+    this.checkCompleted();
+    if (this.listState === 'active') {
+      this.getTasks(this.listState, false);
+    } else if (this.listState === 'complited') {
+      this.getTasks(this.listState, true);
+    } else {
+      this.getTasks(this.listState);
+    }
     this.changeListLength.next((this.filterValues(false)).length);
   }
 }

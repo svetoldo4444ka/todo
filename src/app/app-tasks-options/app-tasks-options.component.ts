@@ -9,6 +9,7 @@ import { TasksService } from '../shared/tasks.service';
 export class AppTasksOptionsComponent implements OnInit {
   taskCounter: number = this.tasksService.counter;
   value = false;
+  selected: string;
   constructor(private tasksService: TasksService) { }
   ngOnInit() {
     this.tasksService.changeListLength
@@ -19,16 +20,25 @@ export class AppTasksOptionsComponent implements OnInit {
         }
       );
   }
-  onGetActiveTasks(): void {
-    this.tasksService.getTasks(this.value);
+  onGetActiveTasks(val): void {
+    this.selected = val;
+    const clickedButton = 'active';
+    this.tasksService.getTasks(clickedButton, this.value);
   }
-  onGetCompletedTasks(): void {
-    this.tasksService.getTasks(!this.value);
+  onGetCompletedTasks(val): void {
+    this.selected = val;
+    const clickedButton = 'complited';
+    this.tasksService.getTasks(clickedButton, !this.value);
   }
-  onGetAllTask(): void {
-    this.tasksService.getTasks();
+  onGetAllTask(val): void {
+    this.selected = val;
+    const clickedButton = 'all';
+    this.tasksService.getTasks(clickedButton);
   }
   onGetCompletedTask(): void {
     this.tasksService.getCompletedTask();
+  }
+  isActive(val) {
+    return this.selected === val;
   }
 }

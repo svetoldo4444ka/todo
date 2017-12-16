@@ -18,9 +18,8 @@ export class AppCreateTaskComponent {
   onAddItem(element) {
     this.tasksService.addNewTask(element.value, !this.isCompleted);
     element.value = '';
-    // this.form.reset();
   }
   onToggleComplited() {
-    this.isChecked = this.tasksService.toggleComplited(this.isChecked);
+    this.tasksService.toggleComplited(this.isChecked);
   }
 }

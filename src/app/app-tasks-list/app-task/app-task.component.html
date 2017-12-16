@@ -1,5 +1,5 @@
 <div class="form-check">
-  <input (click)="onUpdateCounter(newTask?.id)" [attr.id]="newTask?.id"  type="checkbox" class="form-check-input" [checked]="newTask?.completed">
+  <input (click)="onUpdateCounter(newTask?.id, newTask?.completed, newTask)" [attr.id]="newTask?.id"  type="checkbox" class="form-check-input" [checked]="newTask?.completed">
   <label class="form-check-label" [attr.for]="newTask?.id"  >
     {{newTask?.name}}
   </label>

@@ -9,7 +9,6 @@ import { TasksService } from '../shared/tasks.service';
 })
 export class AppTasksListComponent implements OnInit {
   tasks: Task[];
-  // counter: number = this.tasksService.counter;
   constructor(private tasksService: TasksService) { }
 
   ngOnInit() {

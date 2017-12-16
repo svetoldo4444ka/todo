@@ -3,9 +3,9 @@
   {{taskCounter}} tasks left
   </span>
   <div class="btn-group">
-    <button type="button" class="btn btn-default" (click)="onGetAllTask()">All</button>
-    <button type="button" class="btn btn-default" (click)="onGetActiveTasks()">Active</button>
-    <button type="button" class="btn btn-default" (click)="onGetCompletedTasks()">Completed</button>
+    <button type="button" class="btn btn-default" [ngClass]="{active: isActive('all')}"  (click)="onGetAllTask('all')">All</button>
+    <button type="button" class="btn btn-default" [ngClass]="{active: isActive('active')}" (click)="onGetActiveTasks('active')">Active</button>
+    <button type="button" class="btn btn-default" [ngClass]="{active: isActive('complited')}" (click)="onGetCompletedTasks('complited')">Completed</button>
   </div>
   <a href="#" class="pull-right" (click)="onGetCompletedTask()" >Clear Completed</a>
 </div>

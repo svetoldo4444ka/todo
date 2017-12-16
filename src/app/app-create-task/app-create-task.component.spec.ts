@@ -37,23 +37,19 @@ describe('AppCreateTaskComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
   it('has valid form', () => {
     const input = fixture.debugElement.query(By.css('input')).nativeElement;
     input.value = 'test';
     expect(input.value.length).not.toEqual(0);
   });
-
   it('should call addNewTask method', () => {
     spyOn(service, 'addNewTask').and.stub();
     component.onAddItem(testString);
-    expect(service.addNewTask).toHaveBeenCalled();
+    expect(service.addNewTask).toHaveBeenCalledWith(testString, isCompleted);
   });
-
   it('should call toggleComplited method', () => {
     spyOn(service, 'toggleComplited');
     component.onToggleComplited();
-    expect(service.toggleComplited).toHaveBeenCalled();
+    expect(service.toggleComplited).toHaveBeenCalledWith(isCompleted);
   });
-
 });

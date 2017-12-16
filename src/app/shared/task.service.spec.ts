@@ -20,7 +20,7 @@ describe('TasksService', () => {
     {
       id: 2,
       name: 'test task',
-      completed: true
+      completed: false
     }
   ];
   beforeEach(() => {
@@ -78,22 +78,14 @@ describe('TasksService', () => {
       expect(item.completed).not.toBeTruthy();
     });
   });
-  it('should update counter', () => {
-    // service.tasks = tasks;
-    // const changeSpy = spyOn(service.changeListTasks, 'next').and.stub();
-    // service.updateCounter(1);
-
+  it('should checkCompleted values', () => {
+    service.tasks = tasks;
+    const value = service.checkCompleted(service.tasks);
+    expect(value).toBeFalsy();
   });
 
 
 /*
-
-
-
-
-
-
-
 
   deleteTask(id) {
     this.changingTasks = this.tasks.filter( (item, index) => index !== id);
