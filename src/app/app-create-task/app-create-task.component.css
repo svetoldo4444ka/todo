@@ -1,0 +1,13 @@
+.form {
+  position: relative;
+}
+.toggle-input {
+  position: absolute;
+  top: 4px;
+  left: 12px;
+  width: 20px;
+  height: 20px;
+}
+.form input[type='text'] {
+  padding: 0 0 0 40px;
+}
