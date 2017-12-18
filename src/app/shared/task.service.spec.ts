@@ -80,7 +80,7 @@ describe('TasksService', () => {
   });
   it('should checkCompleted values', () => {
     service.tasks = tasks;
-    const value = service.checkCompleted(service.tasks);
+    const value = service.checkCompleted();
     expect(value).toBeFalsy();
   });
 

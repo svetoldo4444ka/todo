@@ -13,7 +13,7 @@ export class AppCreateTaskComponent {
   isChecked: any = false;
   isCompleted = true;
   @ViewChild('createItem') form: NgForm;
-  constructor(private tasksService: TasksService) { }
+  constructor(public tasksService: TasksService) { }
 
   onAddItem(element) {
     this.tasksService.addNewTask(element.value, !this.isCompleted);
