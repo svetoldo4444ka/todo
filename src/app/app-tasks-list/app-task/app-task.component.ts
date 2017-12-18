@@ -10,8 +10,6 @@ import { TasksService } from '../../shared/tasks.service';
 })
 export class AppTaskComponent implements OnInit {
   @Input() newTask: Task;
-  showInput = false;
-  isComplited = false;
   constructor(private tasksService: TasksService) { }
 
   ngOnInit() {}

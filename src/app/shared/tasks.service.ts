@@ -65,7 +65,6 @@ export class TasksService {
     return this.tasks.every((task) => task.completed === true);
   }
   updateCounter(id) {
-    const idTask = id;
     let taskProp;
     for (const task of this.tasks){
       if (task.id === id) {
