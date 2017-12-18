@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
-import { Task } from '../../task.model';
+import { Task } from '../../shared/task.model';
 import { NgForm } from '@angular/forms';
-import { TasksService } from '../../tasks.service';
+import { TasksService } from '../../shared/tasks.service';
 
 @Component({
   selector: 'app-task',
@@ -11,23 +11,14 @@ import { TasksService } from '../../tasks.service';
 export class AppTaskComponent implements OnInit {
   @Input() newTask: Task;
   showInput = false;
+  isComplited = false;
   constructor(private tasksService: TasksService) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
   onDeleteTask(id) {
     this.tasksService.deleteTask(id);
   }
   onUpdateCounter(id) {
     this.tasksService.updateCounter(id);
   }
-
-  // onSwitchElement() {
-  //   this.showInput = true;
-  // }
-  // onChangeValue(form: NgForm, id: number) {
-  //   this.tasksService.changeTask(form.value.name, id);
-  //   this.showInput = false;
-  // }
 }

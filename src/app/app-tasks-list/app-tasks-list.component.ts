@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from '../task.model';
-import { TasksService } from '../tasks.service';
+import { Task } from '../shared/task.model';
+import { TasksService } from '../shared/tasks.service';
 
 @Component({
   selector: 'app-tasks-list',
@@ -9,7 +9,6 @@ import { TasksService } from '../tasks.service';
 })
 export class AppTasksListComponent implements OnInit {
   tasks: Task[];
-  counter: number = this.tasksService.counter;
   constructor(private tasksService: TasksService) { }
 
   ngOnInit() {
@@ -19,6 +18,5 @@ export class AppTasksListComponent implements OnInit {
           this.tasks = tasks;
         }
       );
-
   }
 }

@@ -7,8 +7,8 @@ import { AppComponent } from './app.component';
 import { AppCreateTaskComponent } from './app-create-task/app-create-task.component';
 import { AppTasksListComponent } from './app-tasks-list/app-tasks-list.component';
 import { AppTaskComponent } from './app-tasks-list/app-task/app-task.component';
-import { TasksService } from './tasks.service';
-import { AppTasksControllerComponent } from './app-tasks-controller/app-tasks-controller.component';
+import { TasksService } from './shared/tasks.service';
+import { AppTasksOptionsComponent } from './app-tasks-options/app-tasks-options.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { AppTasksControllerComponent } from './app-tasks-controller/app-tasks-co
     AppCreateTaskComponent,
     AppTasksListComponent,
     AppTaskComponent,
-    AppTasksControllerComponent
+    AppTasksOptionsComponent
   ],
   imports: [
     BrowserModule,

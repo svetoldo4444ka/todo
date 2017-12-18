@@ -1,9 +1,9 @@
 <div class="form-check">
-  <input (click)="onUpdateCounter(newTask.id)" [attr.id]="newTask.id"  type="checkbox" class="form-check-input" [checked]="newTask.completed">
-  <label class="form-check-label" [attr.for]="newTask.id"  >
-    {{newTask.name}}
+  <input (click)="onUpdateCounter(newTask?.id, newTask?.completed, newTask)" [attr.id]="newTask?.id"  type="checkbox" class="form-check-input" [checked]="newTask?.completed">
+  <label class="form-check-label" [attr.for]="newTask?.id"  >
+    {{newTask?.name}}
   </label>
-  <button type="button" (click)="onDeleteTask(newTask.id)" class="close" aria-label="Close">
+  <button type="button" (click)="onDeleteTask(newTask?.id)" class="close" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>

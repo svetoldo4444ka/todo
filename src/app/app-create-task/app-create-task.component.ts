@@ -1,28 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Task } from '../task.model';
-import { TasksService } from '../tasks.service';
+import { Task } from '../shared/task.model';
+import { TasksService } from '../shared/tasks.service';
 
 @Component({
   selector: 'app-create-task',
   templateUrl: './app-create-task.component.html',
   styleUrls: ['./app-create-task.component.css']
 })
-export class AppCreateTaskComponent implements OnInit {
+export class AppCreateTaskComponent {
   task: Task;
-  isChecked = false;
-  isCompleted = false;
+  isChecked: any = false;
+  isCompleted = true;
   @ViewChild('createItem') form: NgForm;
-  constructor(private tasksService: TasksService) { }
+  constructor(public tasksService: TasksService) { }
 
-  ngOnInit() {
+  onAddItem(element) {
+    this.tasksService.addNewTask(element.value, !this.isCompleted);
+    element.value = '';
   }
-  onAddItem(value) {
-    this.tasksService.addNewTask(value.value, this.isCompleted);
-    this.form.reset();
-  }
-  onToggleComplited(id) {
-    this.isChecked = !this.isChecked;
+  onToggleComplited() {
     this.tasksService.toggleComplited(this.isChecked);
   }
 }
