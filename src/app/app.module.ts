@@ -9,6 +9,8 @@ import { AppTasksListComponent } from './app-tasks-list/app-tasks-list.component
 import { AppTaskComponent } from './app-tasks-list/app-task/app-task.component';
 import { TasksService } from './shared/tasks.service';
 import { AppTasksOptionsComponent } from './app-tasks-options/app-tasks-options.component';
+import { StoreModule } from '@ngrx/store';
+import { appTasksListReducer } from './store/app-tasks-list-reducer';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { AppTasksOptionsComponent } from './app-tasks-options/app-tasks-options.
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    StoreModule.forRoot({tasksList: appTasksListReducer})
   ],
   providers: [TasksService],
   bootstrap: [AppComponent]

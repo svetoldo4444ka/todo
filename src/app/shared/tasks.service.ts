@@ -9,7 +9,6 @@ export class TasksService {
   listState: string;
   counter: number = this.tasks.length;
   constructor() {}
-
   filterValues(value?: boolean) {
     if (typeof value !== 'undefined') {
       return this.changingTasks = this.tasks.filter((item) => item.completed === value);
@@ -20,11 +19,14 @@ export class TasksService {
     this.listState = clickedButton;
     this.changeListTasks.next(this.filterValues(value));
   }
-  addNewTask(value: string, valueIsCompleted) {
-    this.tasks.push(new Task(this.tasks.length, value, valueIsCompleted));
-    this.changeListTasks.next(this.tasks);
-    this.changeListLength.next(this.filterValues(valueIsCompleted).length);
-  }
+  // addNewTask(id: number, value: string, valueIsCompleted: boolean) {
+  //   id = this.tasks.length;
+  //   console.log(id);
+  //   this.tasks.push(new Task(id, value, valueIsCompleted));
+  //   this.changeListTasks.next(this.tasks);
+  //   this.changeListLength.next(this.filterValues(valueIsCompleted).length);
+  //
+  // }
   getCompletedTask() {
     this.changingTasks = this.filterValues(false);
     this.tasks = this.changingTasks;

@@ -44,4 +44,24 @@ describe('AppTasksOptionsComponent', () => {
     service.__releaseTaskLength(taskLength);
     expect(service.taskCounter).toEqual(taskLength);
   });
+  // it('should call onGetActiveTask', () => {
+  //   spyOn(service, 'getActiveTask');
+  //   component.onGetActiveTask();
+  //   expect(spy).toHaveBeenCalled();
+  // });
+  // it('should call onGetAllTask', () => {
+  //   const spy = spyOn(tasksService, 'getAllTask');
+  //   component.onGetAllTask();
+  //   expect(spy).toHaveBeenCalled();
+  // });
+  // it('should call onGetCompletedTasks', () => {
+  //   const spy = spyOn(tasksService, 'getCompletedTasks');
+  //   component.onGetCompletedTasks();
+  //   expect(spy).toHaveBeenCalled();
+  // });
+  // it('should call onGetCompletedTask', () => {
+  //   const spy = spyOn(tasksService, 'getCompletedTask');
+  //   component.onGetCompletedTask();
+  //   expect(spy).toHaveBeenCalled();
+  // });
 });
