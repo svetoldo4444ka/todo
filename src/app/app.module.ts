@@ -10,6 +10,7 @@ import { AppTaskComponent } from './app-tasks-list/app-task/app-task.component';
 import { TasksService } from './shared/tasks.service';
 import { AppTasksOptionsComponent } from './app-tasks-options/app-tasks-options.component';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appTasksListReducer } from './store/app-tasks-list-reducer';
 
 @NgModule({
@@ -24,7 +25,10 @@ import { appTasksListReducer } from './store/app-tasks-list-reducer';
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.forRoot({tasksList: appTasksListReducer})
+    StoreModule.forRoot({tasksList: appTasksListReducer}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25 //  Retains last 25 states
+    })
   ],
   providers: [TasksService],
   bootstrap: [AppComponent]

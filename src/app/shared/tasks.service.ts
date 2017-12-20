@@ -25,19 +25,18 @@ export class TasksService {
   //   this.tasks.push(new Task(id, value, valueIsCompleted));
   //   this.changeListTasks.next(this.tasks);
   //   this.changeListLength.next(this.filterValues(valueIsCompleted).length);
-  //
   // }
   getCompletedTask() {
     this.changingTasks = this.filterValues(false);
     this.tasks = this.changingTasks;
     this.changeListTasks.next(this.tasks);
   }
-  deleteTask(id) {
-    this.tasks = this.tasks.filter( (item) => item.id !== id);
-    this.changeListTasks.next(this.tasks);
-    const changingTasks = this.filterValues(false);
-    this.changeListLength.next(changingTasks.length);
-  }
+  // deleteTask(id) {
+  //   this.tasks = this.tasks.filter( (item) => item.id !== id);
+  //   this.changeListTasks.next(this.tasks);
+  //   const changingTasks = this.filterValues(false);
+  //   this.changeListLength.next(changingTasks.length);
+  // }
   getTasksValue(isChecked: boolean): boolean {
     for (const task of this.tasks){
       if (task.completed === isChecked) {

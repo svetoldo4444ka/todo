@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TasksService } from '../shared/tasks.service';
+import {Task} from '../shared/task.model';
+import {Store} from '@ngrx/store';
+import * as AppTasksListActions from '../store/app-tasks-list.actions';
 
 @Component({
   selector: 'app-tasks-options',
@@ -10,7 +13,7 @@ export class AppTasksOptionsComponent implements OnInit {
   taskCounter: number = this.tasksService.counter;
   value = false;
   selected: string;
-  constructor(private tasksService: TasksService) { }
+  constructor(private tasksService: TasksService, private store: Store<{tasksList: {tasks: Task[]}}>) { }
   ngOnInit() {
     this.tasksService.changeListLength
       .subscribe(
@@ -23,7 +26,8 @@ export class AppTasksOptionsComponent implements OnInit {
   onGetActiveTasks(val): void {
     this.selected = val;
     const clickedButton = 'active';
-    this.tasksService.getTasks(clickedButton, this.value);
+    // this.tasksService.getTasks(clickedButton, this.value);
+    this.store.dispatch(new AppTasksListActions.GetActiveTasks({clickedButton: clickedButton, value: this.value));
   }
   onGetCompletedTasks(val): void {
     this.selected = val;
@@ -33,7 +37,8 @@ export class AppTasksOptionsComponent implements OnInit {
   onGetAllTask(val): void {
     this.selected = val;
     const clickedButton = 'all';
-    this.tasksService.getTasks(clickedButton);
+    // this.tasksService.getTasks(clickedButton);
+    this.store.dispatch(new AppTasksListActions.GetAllTasks({clickedButton: clickedButton));
   }
   onGetCompletedTask(): void {
     this.tasksService.getCompletedTask();

@@ -14,15 +14,13 @@ export class AppCreateTaskComponent {
   task: Task;
   isChecked: any = false;
   isCompleted = true;
-  idTask = 0;
+  idTask = 2;
   @ViewChild('createItem') form: NgForm;
   constructor(public tasksService: TasksService, private store: Store<{tasksList: {tasks: Task[]}}>) { }
   onAddItem(element) {
-    this.idTask += 2;
-    console.log(this.idTask);
+    this.idTask = ++this.idTask;
     const newTask = new Task(this.idTask, element.value, !this.isCompleted);
-    this.store.dispatch(new AppTasksListActions.AddTasks(newTask));
-    // this.tasksService.addNewTask(element.value, !this.isCompleted);
+    this.store.dispatch(new AppTasksListActions.AddTasks(newTask)); // this.tasksService.addNewTask(element.value, !this.isCompleted);
     element.value = '';
   }
   onToggleComplited() {
