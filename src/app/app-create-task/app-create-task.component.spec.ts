@@ -25,24 +25,25 @@ describe('AppCreateTaskComponent', () => {
       } ]
     })
     .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AppCreateTaskComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(AppCreateTaskComponent); // create component and test fixture
+    component = fixture.componentInstance; // get test component from the fixture
     fixture.detectChanges();
-    service = TestBed.get(TasksService);
+    service = TestBed.get(TasksService); // UserService provided to the TestBed
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  // beforeEach(() => {
+  //   fixture = TestBed.createComponent(AppCreateTaskComponent);
+  //   component = fixture.componentInstance;
+  //   fixture.detectChanges();
+  //   service = TestBed.get(TasksService);
+  // });
   it('has valid form', () => {
     const input = fixture.debugElement.query(By.css('input')).nativeElement;
     input.value = 'test';
     expect(input.value.length).not.toEqual(0);
   });
   it('should call addNewTask method', () => {
+    console.log(1);
     spyOn(service, 'addNewTask').and.stub();
     component.onAddItem(testString);
     expect(service.addNewTask).toHaveBeenCalledWith(testString, isCompleted);
